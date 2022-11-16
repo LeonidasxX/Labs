@@ -1,104 +1,113 @@
 import java.util.*;
 
-class PushException extends Exception
-{
-	PushException()
-	{
-		System.out.println("Stack Overflow");
-	}
-
-}
-
-
-class PopException extends Exception
-{
-	PopException()
-	{
-		System.out.println("Stack Underflow");
-	}
-
-}
-
-class Stack
-{
-	int st[];
+class Stack<T>{
+	T ob[];
 	int tos;
-	int MAX;
 
-	Stack()
-	{
-		Scanner sc = new Scanner(System.in);
-		System.out.print("Enter size to be allocated for stack: ");
-		MAX = sc.nextInt();	
-		st = new int[MAX];
+	Stack (T [] o) {
 		tos = -1;
-		
-	}	
-
-
-	void push(int ele) throws PushException
-	{
-		if(tos == MAX-1)
-			throw new PushException();
-		else
-			st[++tos] = ele;		
+		ob = o;
+	}
+	
+	boolean isEmpty () {
+		return (tos == -1);
 	}
 
-	void pop() throws PopException
-	{
-		if (tos == -1)
-			throw new PopException();
-		else
-			System.out.println("Popped element: " + st[tos--]);
-
+	void push (T item) {
+		if (tos == ob.length - 1) {
+			System.out.println("\n\tSTACK OVERFLOW!");
+			return;
+		}
+		ob[++tos] = item;
 	}
 
-	void disp()
+	T pop () {
+		if (tos == -1) {
+			System.out.println("\n\tSTACK UNDERFLOW!");
+			return null;
+		}
+		return ob[tos--];
+	}
+
+	
+	
+}
+
+class Student{
+	String name;
+	int age;
+	String isDead;
+
+	Student(String name, int age, String isDead){
+		this.name = name;
+		this.age = age;
+		this.isDead = isDead;
+	}
+
+	void display()
 	{
-		for(int i = 0; i<=tos; i++)
-			System.out.print(st[i]+"-> ");
-		
+		System.out.println("Name: " + name);
+		System.out.println("Age: " + age);
+		System.out.println("Is he Dead?: " + isDead);
+	}
+}
+
+class Employee{
+	String name;
+	int eid;
+	String wanna_die;
+
+	Employee(String name, int eid, String wanna_die){
+		this.name = name;
+		this.eid = eid;
+		this.wanna_die = wanna_die;
+	}
+
+	void display()
+	{
+		System.out.println("Name: " + name);
+		System.out.println("Eid: " + eid);
+		System.out.println("Does he wanna die?: " + wanna_die);
 	}
 }
 
 class DemoStack{
-
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		Stack s = new Stack();
-		int ch;
-		do
-		{
-			System.out.print("\n1. Push\n2. Pop\n3. Display\n4. Exit\nEnter choice: ");
-			ch = sc.nextInt();
-			switch(ch)
-			{
-				case 1: try
-					{
-						System.out.print("Enter element: ");
-						s.push(sc.nextInt());
-						break;
-					}
-					catch(PushException e)
-					{
-						break;
-					}
-				case 2: try
-					{
-						s.pop(); 
-						break;
-					}
-					catch(PopException e)
-					{
-						break;
-					}
-				case 3: s.disp();
-					  break;
-				case 4: System.exit(0);
+		Stack<Student> sOb;
+		Stack<Employee> eOb;
 
-			}
-		} while(ch!=4);
-			
+		Student s1 = new Student("Gautam", 18, "Not_yet");
+		Student s2 = new Student("Shouvik", 19, "Probably_soon");
+		Student s3 = new Student("Shagun", 12, "IfNotSomeOneWill");
+		Student [] s = new Student[3];
+		sOb = new Stack<Student>(s);
+		sOb.push(s1);
+		s1.display();
+		sOb.push(s2);
+		s2.display();
+		sOb.push(s3);
+		s3.display();
+
+		Employee e1 = new Employee("Ronan", 28, "MentionsAlot");
+		Employee e2 = new Employee("Sidhharth", 29, "BandiMilGayi");
+		Employee [] e = new Employee[3];
+		eOb = new Stack<Employee>(e);
+		eOb.push(e1);
+		e1.display();
+		eOb.push(e2);
+		e2.display();
+
+		System.out.println("Poping Student: ");
+
+		Student sv = sOb.pop();
+		sv.display();
+
+		System.out.println("Poping Employee: ");
+
+		Employee ev = eOb.pop();
+		ev.display();
+
+
 	}
 }
