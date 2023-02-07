@@ -1,0 +1,85 @@
+create table EMPLOYEE(emp_no number(20) primary key,
+emp_name varchar(50) not null,
+gender varchar(30) not null,
+salary number(20) not null,
+emp_address varchar(80) not null,
+DNo number(20),
+CHECK(gender in ('M', 'F')));
+
+create table EMPDEPARTMENT(
+    dept_no number(20) primary key,
+    dept_name varchar(50) not null,
+    location varchar(50));
+
+ALTER TABLE EMPLOYEE ADD constraint foreign FOREIGN KEY (DNo) REFERENCES EMPDEPARTMENT(dept_no);  
+
+insert into EMPLOYEE values(101,'Gautam','M',10000,'Dehradun',501);
+insert into EMPLOYEE values(102,'Jahanvi','F',20000,'Delhi',502);
+insert into EMPLOYEE values(103,'Shouvik','M',30000,'Noida',503);
+insert into EMPLOYEE values(104,'Shagun','F',40000,'Hyderabad',504);
+insert into EMPLOYEE values(105,'Ronan','M',50000,'Manipal',505);
+
+insert into EMPDEPARTMENT values(501, 'CSE', 'AB5');
+insert into EMPDEPARTMENT values(502, 'Humanities', 'NLH');
+insert into EMPDEPARTMENT values(503, 'CCE', 'AB3');
+insert into EMPDEPARTMENT values(504, 'CS', 'AB5');
+insert into EMPDEPARTMENT values(505, 'Mech', 'AB2');
+
+insert into EMPLOYEE values(106,'XYZ','G',1000,'IDK',506);
+insert into EMPDEPARTMENT values(506,null,'ABC');
+
+
+delete from EMPDEPARTMENT where dept_no=501;
+
+alter table employee drop constraint foreign;
+alter table employee add constraint foreign foreign key(dno) references EMPDEPARTMENT(dept_no) ON DELETE CASCADE;
+
+alter table employee add constraint modify salary default 1000;
+
+-- // 9 onwards
+
+select name, dept_name from Student;
+
+select name from Instructor where dept_name='Comp. Sci.';
+
+select dept_name from Course where credits=3;
+
+select course-id, title from Course c, Takes t where c.course-id = t.course-id;
+-- // Natural join method- same thing above
+select c.course_id, title from Course c, Takes t where c.course_id = t.Course_id and id=12345;
+
+select name from Instructor where salary between 40000 and 90000;
+
+
+select id from instructor where id not in (select id from teaches);
+
+select name, course_name, year from student, takes in something;
+14-15-17 omitted
+
+--16:
+select name, course_id as c_name from student, takes where year=2015;
+
+select name from instructor where dept_name LIKE %ch%;
+
+select name, length(name) from student;
+
+select dept_name, substr(dept_name, 3, 3) from instructor;
+
+select upper(name) from instructor;
+
+UPDATE time_slot
+SET end-time=0
+WHERE end-time IS NULL;
+
+select salary, round(salary/3) from instructor;
+select salary, round(salary/3, -2) from instructor;
+
+alter table employee add DOB date;
+
+update employee set DOB='02-10-2002' where emp_name='Gautam';
+
+select to_date(dob, 'dd-mon-yyyy') from employee;
+select to_date(dob, 'dd-mon-yy') from employee;
+select to_date(dob, 'dd-mm-yyyy') from employee;
+
+select name, year(dob) from employee;
