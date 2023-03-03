@@ -89,6 +89,17 @@ if __name__ == '__main__':
     graph[5].append(2)
     graph[5].append(6)
     graph[6].append(4)
+     
+     
+    graph[0].append(1)
+    graph[0].append(2)
+    graph[1].append(2)
+    graph[1].append(3)
+    graph[2].append(1)
+    graph[2].append(3)
+    graph[2].append(4)
+    graph[3].append(4)
+    graph[4].append(3)
  
     # add the cost
     cost[(0, 1)] = 2
@@ -103,6 +114,17 @@ if __name__ == '__main__':
     cost[(5, 2)] = 6
     cost[(5, 6)] = 3
     cost[(6, 4)] = 7
+
+
+    cost[(0, 1)] = 6
+    cost[(0, 2)] = 3
+    cost[(1, 2)] = 1
+    cost[(1, 3)] = 2
+    cost[(2, 1)] = 4
+    cost[(2, 3)] = 8
+    cost[(2, 4)] = 2
+    cost[(3, 4)] = 9
+    cost[(4, 3)] = 7
  
     # goal state
     goal = []
