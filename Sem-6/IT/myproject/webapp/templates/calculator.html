@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Calculator</title>
+    <style>
+      input,
+      button {
+        margin: 5px;
+        padding: 10px;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Basic Calculator</h1><br>
+    <label for="num1">A :</label>
+    <input type="text" id="a" /> <br>
+
+    <label for="operator">Operation: </label>
+    <select id="operator">
+      <option value="+">+</option>
+      <option value="-">-</option>
+      <option value="*">*</option>
+      <option value="/">/</option>
+    </select> <br>
+
+    <label for="num2">B :</label>
+    <input type="text" id="b" /> <br>
+
+    <button id="calculate">Calculate</button><br>
+
+    <label for="result">Result:</label>
+    <input type="text" id="result" readonly /> <br>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    </script>
+
+    <script>
+      $(document).ready(function () {
+        $("#calculate").click(function () {
+          var a = parseFloat($("#a").val());
+          var b = parseFloat($("#b").val());
+          var operator = $("#operator").val();
+
+          if (!isNaN(a) && !isNaN(b)) {
+            var result;
+
+            switch (operator) {
+              case "+":
+                result = a + b;
+                break;
+              case "-":
+                result = a - b;
+                break;
+              case "*":
+                result = a * b;
+                break;
+              case "/":
+                if (b !== 0) {
+                  result = a / b;
+                } else {
+                  alert("Cannot divide by zero!");
+                  return;
+                }
+                break;
+              default:
+                alert("Invalid operator!");
+                return;
+            }
+
+            $("#result").val(result);
+          } else {
+            alert("Please enter valid numbers");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
